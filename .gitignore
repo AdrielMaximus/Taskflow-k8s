@@ -1,0 +1,4 @@
+# GitOps repo
+*.log
+.DS_Store
+kubeconfig
