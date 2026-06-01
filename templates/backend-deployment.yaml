@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskflow-backend
+  labels:
+    app: taskflow
+    tier: backend
+spec:
+  replicas: {{ .Values.backend.replicas }}
+
+  selector:
+    matchLabels:
+      app: taskflow
+      tier: backend
+
+  template:
+    metadata:
+      labels:
+        app: taskflow
+        tier: backend
+
+    spec:
+      containers:
+      - name: taskflow-backend
+
+        image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+        imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+
+        ports:
+        - containerPort: {{ .Values.backend.containerPort }}
+
+        resources:
+          limits:
+            memory: {{ .Values.backend.resources.limits.memory }}
+            cpu: {{ .Values.backend.resources.limits.cpu }}
+          requests:
+            memory: {{ .Values.backend.resources.requests.memory }}
+            cpu: {{ .Values.backend.resources.requests.cpu }}
+
+        env:
+        - name: NODE_ENV
+          value: {{ .Values.backend.nodeEnv | quote }}

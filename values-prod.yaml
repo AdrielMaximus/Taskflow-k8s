@@ -1,0 +1,49 @@
+frontend:
+  replicas: 3
+
+  image:
+    repository: adrielmaximus/taskflow-front-end
+    tag: prod
+    pullPolicy: Always
+
+  containerPort: 80
+
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  resources:
+    limits:
+      memory: "1Gi"
+      cpu: "1000m"
+
+    requests:
+      memory: "512Mi"
+      cpu: "500m"
+
+backend:
+  replicas: 3
+
+  image:
+    repository: adrielmaximus/taskflow-back-end
+    tag: prod
+    pullPolicy: Always
+
+  containerPort: 3000
+
+  nodeEnv: production
+
+  service:
+    type: ClusterIP
+    port: 3000
+    targetPort: 3000
+
+  resources:
+    limits:
+      memory: "1Gi"
+      cpu: "1000m"
+
+    requests:
+      memory: "512Mi"
+      cpu: "500m"

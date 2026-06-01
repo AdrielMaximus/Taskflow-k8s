@@ -1,0 +1,49 @@
+frontend:
+  replicas: 2
+
+  image:
+    repository: adrielmaximus/taskflow-front-end
+    tag: stag
+    pullPolicy: Always
+
+  containerPort: 80
+
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  resources:
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+
+backend:
+  replicas: 2
+
+  image:
+    repository: adrielmaximus/taskflow-back-end
+    tag: stag
+    pullPolicy: Always
+
+  containerPort: 3000
+
+  nodeEnv: staging
+
+  service:
+    type: ClusterIP
+    port: 3000
+    targetPort: 3000
+
+  resources:
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+
+    requests:
+      memory: "256Mi"
+      cpu: "250m"

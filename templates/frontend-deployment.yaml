@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskflow-frontend
+  labels:
+    app: taskflow
+    tier: frontend
+
+spec:
+  replicas: {{ .Values.frontend.replicas }}
+
+  selector:
+    matchLabels:
+      app: taskflow
+      tier: frontend
+
+  template:
+    metadata:
+      labels:
+        app: taskflow
+        tier: frontend
+
+    spec:
+      containers:
+      - name: taskflow-frontend
+
+        image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+        imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+
+        ports:
+        - containerPort: {{ .Values.frontend.containerPort }}
+
+        resources:
+          limits:
+            memory: {{ .Values.frontend.resources.limits.memory }}
+            cpu: {{ .Values.frontend.resources.limits.cpu }}
+
+          requests:
+            memory: {{ .Values.frontend.resources.requests.memory }}
+            cpu: {{ .Values.frontend.resources.requests.cpu }}
